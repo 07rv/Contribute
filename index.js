@@ -26,13 +26,12 @@ const makeCommits = (n) => {
   if (n === 0) return simpleGit().push();
   const x = random.int(0, 54);
   const y = random.int(0, 6);
-  const date = moment()
-    .subtract(1, "y")
-    .add(1, "d")
-    .add(x, "w")
-    .add(y, "d")
-    .format();
+  let date = moment().subtract(4, "y").add(1, "d").add(x, "w").add(y, "d");
 
+  if (date.isAfter(moment())) {
+    date = moment().subtract(1, "d"); // Set to one day before today if needed
+  }
+  date = date.format();
   const data = {
     date: date,
   };
